@@ -2,17 +2,16 @@ package kz.alim.hotel.data.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import java.util.List;
 
 @Entity
-public class Room {
+public class RoomOfferDiscount {
     @Id
     public long Id;
-    public String Number;
-    public int Floor;
-
+    public String Name;
+    public float Coefficient;
     @ManyToOne
-    public Hotel Hotel;
-    @ManyToOne
-    public RoomType Type;
+    public GuestType OfferedTo;
 }
