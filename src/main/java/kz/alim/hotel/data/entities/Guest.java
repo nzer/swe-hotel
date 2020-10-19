@@ -5,6 +5,7 @@ import javax.persistence.*;
 @Entity
 public class Guest {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public long Id;
     public String Name;
     public String Address;

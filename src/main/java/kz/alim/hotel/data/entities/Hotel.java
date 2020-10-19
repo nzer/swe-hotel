@@ -1,14 +1,12 @@
 package kz.alim.hotel.data.entities;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 public class Hotel {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public long Id;
     public String Name;
     public String Address;

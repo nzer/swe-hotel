@@ -7,6 +7,7 @@ import java.util.List;
 @Entity
 public class Reservation {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public long Id;
     public LocalDateTime Start;
     public LocalDateTime End;

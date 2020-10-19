@@ -1,12 +1,11 @@
 package kz.alim.hotel.data.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Room {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     public long Id;
     public String Number;
     public int Floor;
