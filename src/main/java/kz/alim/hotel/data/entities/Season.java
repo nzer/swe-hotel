@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Season {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long Id;
     public String Name;
     public LocalDateTime Start;

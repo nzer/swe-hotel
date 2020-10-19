@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class GuestType {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long Id;
     public String Name;
 }

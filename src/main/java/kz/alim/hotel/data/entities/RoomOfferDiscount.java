@@ -6,7 +6,7 @@ import java.util.List;
 @Entity
 public class RoomOfferDiscount {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long Id;
     public String Name;
     public float Coefficient;
