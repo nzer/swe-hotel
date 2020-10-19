@@ -4,6 +4,21 @@ VALUES (1, 'Dostyk 72', 'Kazakhstan');
 INSERT INTO hotel.hotel (id, address, name)
 VALUES (2, 'Dostyk 112', 'Koktem');
 
+INSERT INTO hotel.hotel_phones (hotel_id, phones)
+VALUES (1, '+77278132111');
+
+INSERT INTO hotel.hotel_phones (hotel_id, phones)
+VALUES (1, '+77278132222');
+
+INSERT INTO hotel.hotel_phones (hotel_id, phones)
+VALUES (2, '+77273132111');
+
+INSERT INTO hotel.hotel_phones (hotel_id, phones)
+VALUES (2, '+77273142111');
+
+INSERT INTO hotel.hotel_phones (hotel_id, phones)
+VALUES (2, '+77273142333');
+
 INSERT INTO hotel.guest (id, address, home_phone, identity_type, mobile_phone, name, type_id)
 VALUES (1, 'Abay 44', '+77272336611', 'Passport', '+77779995566', 'Dima', null);
 
@@ -69,4 +84,31 @@ VALUES (15, 2, '203', 2, 5);
 
 INSERT INTO hotel.room (id, floor, number, hotel_id, type_id)
 VALUES (16, 2, '204', 2, 5);
+
+INSERT INTO hotel.room_feature (id, name)
+VALUES (1, 'TV');
+
+INSERT INTO hotel.room_feature (id, name)
+VALUES (2, 'Mountain View');
+
+INSERT INTO hotel.room_feature (id, name)
+VALUES (3, 'Minibar');
+
+INSERT INTO hotel.room_type_features (room_type_id, features_id)
+VALUES (2, 1);
+
+INSERT INTO hotel.room_type_features (room_type_id, features_id)
+VALUES (2, 2);
+
+INSERT INTO hotel.room_type_features (room_type_id, features_id)
+VALUES (2, 3);
+
+INSERT INTO hotel.room_type_features (room_type_id, features_id)
+VALUES (3, 1);
+
+INSERT INTO hotel.room_type_features (room_type_id, features_id)
+VALUES (4, 1);
+
+INSERT INTO hotel.room_type_features (room_type_id, features_id)
+VALUES (5, 1);
 

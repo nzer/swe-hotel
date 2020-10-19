@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/hotel")
+@RequestMapping("/hotels")
 public class HotelController {
     private final HotelRepository hotelRepository;
 

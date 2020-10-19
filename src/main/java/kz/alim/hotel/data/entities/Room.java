@@ -16,6 +16,5 @@ public class Room {
     @JsonBackReference
     public Hotel Hotel;
     @ManyToOne
-    @JsonBackReference
     public RoomType Type;
 }
