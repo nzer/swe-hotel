@@ -2,9 +2,7 @@ package kz.alim.hotel.controllers;
 
 import kz.alim.hotel.data.HotelRepository;
 import kz.alim.hotel.data.entities.Hotel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/hotels")
@@ -18,5 +16,10 @@ public class HotelController {
     @GetMapping
     public Iterable<Hotel> GetAllHotels(){
         return hotelRepository.findAll();
+    }
+
+    @GetMapping("/{id}")
+    Hotel GetHotelById(@PathVariable long id) {
+        return hotelRepository.findById(id).orElseThrow();
     }
 }
