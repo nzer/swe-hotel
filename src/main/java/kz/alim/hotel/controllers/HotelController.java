@@ -5,7 +5,7 @@ import kz.alim.hotel.data.entities.Hotel;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/hotels")
+@RequestMapping("/api/hotels")
 public class HotelController {
     private final HotelRepository hotelRepository;
 
