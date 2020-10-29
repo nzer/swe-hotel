@@ -20,6 +20,7 @@ public class Hotel {
     @OneToMany(mappedBy = "Hotel")
     @JsonManagedReference
     public List<RoomType> RoomTypes;
-    @OneToMany
+    @OneToMany(mappedBy = "Hotel")
+    @JsonManagedReference
     public List<HotelService> Services;
 }

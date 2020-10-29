@@ -1,9 +1,8 @@
 package kz.alim.hotel.data.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 @Entity
 public class HotelService {
@@ -12,4 +11,7 @@ public class HotelService {
     public long Id;
     public String Name;
     public double Price;
+    @ManyToOne
+    @JsonBackReference
+    public Hotel Hotel;
 }
