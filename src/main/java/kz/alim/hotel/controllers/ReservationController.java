@@ -7,6 +7,7 @@ import kz.alim.hotel.data.entities.Hotel;
 import kz.alim.hotel.data.entities.Room;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
@@ -27,8 +28,14 @@ public class ReservationController {
     }
 
     @PostMapping("check")
-    public List<Room> CheckAvailability(LocalDateTime start, LocalDateTime finish, Long hotelId) {
-        Hotel hotel = hotelRepository.findById(hotelId).orElseThrow();
-        return roomRepository.findFreeRooms(hotel, start, finish);
+    public List<Room> CheckAvailability(@RequestParam CheckAvailabilityDto request) {
+        Hotel hotel = hotelRepository.findById(request.hotelId).orElseThrow();
+        return roomRepository.findFreeRooms(hotel, request.start, request.finish);
+    }
+
+    public static class CheckAvailabilityDto {
+        Long hotelId;
+        LocalDateTime start;
+        LocalDateTime finish;
     }
 }
