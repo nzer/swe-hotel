@@ -1,1 +1,1 @@
-GET http://localhost:8080/hotels
+GET http://localhost:8080/api/hotels
