@@ -6,3 +6,23 @@ Content-Type: application/json
   "start": "2020-10-23T18:25:43.511Z",
   "finish": "2020-12-23T18:25:43.511Z"
 }
+
+### Test only applicable to empty database
+POST http://localhost:8080/api/reservations/create
+Content-Type: application/json
+
+{
+"roomId": 2,
+"start": "2020-11-23T12:25:43.511Z",
+"finish": "2020-11-23T18:25:43.511Z"
+}
+
+###
+POST http://localhost:8080/api/reservations/check
+Content-Type: application/json
+
+{
+  "hotelId": 1,
+  "start": "2020-10-23T18:25:43.511Z",
+  "finish": "2020-12-23T18:25:43.511Z"
+}
