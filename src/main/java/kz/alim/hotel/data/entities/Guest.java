@@ -7,6 +7,8 @@ public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long Id;
+    public String Login;
+    public String Password;
     public String Name;
     public String Address;
     public String HomePhone;
