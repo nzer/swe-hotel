@@ -1,0 +1,5 @@
+GET http://localhost:8080/api/auth
+Authorization: Basic user 1
+
+###
+GET http://localhost:8080/api/auth

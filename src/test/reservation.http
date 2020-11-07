@@ -26,3 +26,6 @@ Content-Type: application/json
   "start": "2020-10-23T18:25:43.511Z",
   "finish": "2020-12-23T18:25:43.511Z"
 }
+
+###
+GET http://localhost:8080/api/reservations/list?guestId=1
