@@ -28,6 +28,8 @@ public class AuthController {
         guest.Address = request.Address;
         guest.HomePhone = request.HomePhone;
         guest.MobilePhone = request.MobilePhone;
+        guest.Login = request.Login;
+        guest.Password = request.Password;
         guestRepository.save(guest);
         return true;
     }
@@ -37,5 +39,7 @@ public class AuthController {
         public String Address;
         public String HomePhone;
         public String MobilePhone;
+        public String Login;
+        public String Password;
     }
 }
