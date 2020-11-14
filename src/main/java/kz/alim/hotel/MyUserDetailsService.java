@@ -1,12 +1,12 @@
 package kz.alim.hotel;
 
-import kz.alim.hotel.data.GuestRepository;
+import kz.alim.hotel.data.AccountRepository;
+import kz.alim.hotel.data.entities.Account;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,25 +14,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class MyUserDetailsService implements UserDetailsService {
-    private final GuestRepository guestRepository;
+    public static final String ROLE_GUEST = "GUEST";
+    private final AccountRepository accountRepository;
     private final PasswordEncoder encoder;
 
-    public MyUserDetailsService(GuestRepository guestRepository) {
-        this.guestRepository = guestRepository;
+    public MyUserDetailsService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
         encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        var guest = guestRepository.findByLogin(s);
-        if (guest == null)
+        Account account = accountRepository.findByLogin(s);
+        if (account == null)
             throw new UsernameNotFoundException("Guest not found");
-        return User
-                .builder()
+        User.UserBuilder userDetails = User.builder()
                 .username(s)
-                .password(encoder.encode(guest.Password))
-                .authorities("guest")
-                .roles("guest")
-                .build();
+                .password(encoder.encode(account.Password));
+        if (account.Role == Account.AccountRole.GUEST) {
+            userDetails = userDetails
+                    .authorities(ROLE_GUEST)
+                    .roles(ROLE_GUEST);
+        }
+        return userDetails.build();
     }
 }

@@ -5,11 +5,15 @@ import javax.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Account {
-    public static final String ROLE_GUEST = "GUEST";
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long Id;
+    @Column(unique=true)
     public String Login;
     public String Password;
-    public String Role;
+    public AccountRole Role;
+
+    public enum AccountRole {
+        GUEST, CLERK
+    }
 }

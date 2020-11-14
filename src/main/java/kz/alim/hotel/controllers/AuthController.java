@@ -1,5 +1,6 @@
 package kz.alim.hotel.controllers;
 
+import kz.alim.hotel.MyUserDetailsService;
 import kz.alim.hotel.data.GuestRepository;
 import kz.alim.hotel.data.entities.Account;
 import kz.alim.hotel.data.entities.Guest;
@@ -31,7 +32,7 @@ public class AuthController {
         guest.MobilePhone = request.MobilePhone;
         guest.Login = request.Login;
         guest.Password = request.Password;
-        guest.Role = Account.ROLE_GUEST;
+        guest.Role = Account.AccountRole.GUEST;
         guestRepository.save(guest);
         return true;
     }
