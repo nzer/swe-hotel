@@ -16,3 +16,24 @@ Content-Type: application/json
   "Login": "vlad66",
   "Password": "vlad"
 }
+
+###
+GET http://localhost:8080/api/auth/signin
+Authorization: Basic vlad66 vlad
+
+###
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "Name": "Viktor",
+  "Address": "Dostyk 78",
+  "HomePhone": "2354242",
+  "MobilePhone": "+77771115555",
+  "Login": "viktor11",
+  "Password": "viktor123"
+}
+
+###
+GET http://localhost:8080/api/auth/signin
+Authorization: Basic viktor11 viktor123

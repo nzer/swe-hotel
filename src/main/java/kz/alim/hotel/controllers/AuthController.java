@@ -2,10 +2,9 @@ package kz.alim.hotel.controllers;
 
 import kz.alim.hotel.data.GuestRepository;
 import kz.alim.hotel.data.entities.Guest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -17,12 +16,13 @@ public class AuthController {
     }
 
     @GetMapping("/signin")
-    public Guest Auth() {
-        return guestRepository.findById(1L).orElseThrow();
+    public Guest Auth(Authentication authentication) {
+        var user = (User) authentication.getPrincipal();
+        return guestRepository.findByLogin(user.getUsername());
     }
 
     @PostMapping("/register")
-    public boolean Register(RegisterGuestDto request) {
+    public boolean Register(@RequestBody RegisterGuestDto request) {
         Guest guest = new Guest();
         guest.Name = request.Name;
         guest.Address = request.Address;
