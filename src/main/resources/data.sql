@@ -7,8 +7,8 @@ VALUES (1, '+77278132111');
 INSERT INTO hotel.hotel_phones (hotel_id, phones)
 VALUES (1, '+77278132222');
 
-INSERT INTO hotel.guest (id, address, home_phone, identity_type, mobile_phone, name, type_id)
-VALUES (1, 'Abay 44', '+77272336611', 'Passport', '+77779995566', 'Dima', null);
+INSERT INTO hotel.guest (id, address, home_phone, identity_type, mobile_phone, name, type_id, login, password)
+VALUES (1, 'Abay 44', '+77272336611', 'Passport', '+77779995566', 'Dima', null, 'user', '1');
 
 INSERT INTO hotel.room_type (capacity, name, size, hotel_id)
 VALUES (2, 'Twin standard', 15, 1);
@@ -42,4 +42,3 @@ VALUES (2, 2);
 
 INSERT INTO hotel.room_type_features (room_type_id, features_id)
 VALUES (2, 3);
-
