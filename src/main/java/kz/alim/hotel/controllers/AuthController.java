@@ -1,6 +1,7 @@
 package kz.alim.hotel.controllers;
 
 import kz.alim.hotel.data.GuestRepository;
+import kz.alim.hotel.data.entities.Account;
 import kz.alim.hotel.data.entities.Guest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -30,6 +31,7 @@ public class AuthController {
         guest.MobilePhone = request.MobilePhone;
         guest.Login = request.Login;
         guest.Password = request.Password;
+        guest.Role = Account.ROLE_GUEST;
         guestRepository.save(guest);
         return true;
     }

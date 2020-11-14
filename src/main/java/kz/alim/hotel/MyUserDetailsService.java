@@ -32,6 +32,7 @@ public class MyUserDetailsService implements UserDetailsService {
                 .username(s)
                 .password(encoder.encode(guest.Password))
                 .authorities("guest")
+                .roles("guest")
                 .build();
     }
 }

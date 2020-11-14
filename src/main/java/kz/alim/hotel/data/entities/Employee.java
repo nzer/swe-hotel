@@ -3,10 +3,7 @@ package kz.alim.hotel.data.entities;
 import javax.persistence.*;
 
 @Entity
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long Id;
+public class Employee extends Account {
     @ManyToOne
     public Hotel Hotel;
     @Enumerated(EnumType.STRING)

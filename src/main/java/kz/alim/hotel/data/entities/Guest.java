@@ -3,12 +3,7 @@ package kz.alim.hotel.data.entities;
 import javax.persistence.*;
 
 @Entity
-public class Guest {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long Id;
-    public String Login;
-    public String Password;
+public class Guest extends Account {
     public String Name;
     public String Address;
     public String HomePhone;
