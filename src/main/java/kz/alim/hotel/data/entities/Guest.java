@@ -8,10 +8,10 @@ public class Guest extends Account {
     public String Address;
     public String HomePhone;
     public String MobilePhone;
-    @Enumerated(EnumType.STRING)
     public IdentityType IdentityType;
+    public String IdentityData;
     @ManyToOne
-    public GuestType Type;
+    public GuestType GuestType;
 
     public enum IdentityType {
         Passport, DrivingLicense

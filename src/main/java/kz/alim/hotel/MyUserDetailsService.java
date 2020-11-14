@@ -16,11 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class MyUserDetailsService implements UserDetailsService {
     public static final String ROLE_GUEST = "GUEST";
     private final AccountRepository accountRepository;
-    private final PasswordEncoder encoder;
 
     public MyUserDetailsService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-        encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @Override
@@ -30,7 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("Guest not found");
         User.UserBuilder userDetails = User.builder()
                 .username(s)
-                .password(encoder.encode(account.Password));
+                .password(account.Password);
         if (account.Role == Account.AccountRole.GUEST) {
             userDetails = userDetails
                     .authorities(ROLE_GUEST)
