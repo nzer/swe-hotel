@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class AuthController {
     private final GuestRepository guestRepository;
 
@@ -16,7 +16,7 @@ public class AuthController {
         this.guestRepository = guestRepository;
     }
 
-    @GetMapping("/auth")
+    @GetMapping("/signin")
     public Guest Auth() {
         return guestRepository.findById(1L).orElseThrow();
     }

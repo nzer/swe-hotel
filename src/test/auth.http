@@ -1,5 +1,18 @@
-GET http://localhost:8080/api/auth
+GET http://localhost:8080/api/auth/signin
 Authorization: Basic user 1
 
 ###
 GET http://localhost:8080/api/auth
+
+###
+POST http://localhost:8080/api/auth/register
+Content-Type: application/json
+
+{
+  "Name": 2,
+  "Address": "2020-11-23T12:25:43.511Z",
+  "HomePhone": "2020-11-23T18:25:43.511Z",
+  "MobilePhone": "",
+  "Login": "",
+  "Password": ""
+}
