@@ -1,6 +1,5 @@
 package kz.alim.hotel.controllers;
 
-import kz.alim.hotel.MyUserDetailsService;
 import kz.alim.hotel.data.GuestRepository;
 import kz.alim.hotel.data.entities.Account;
 import kz.alim.hotel.data.entities.Guest;
