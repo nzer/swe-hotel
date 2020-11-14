@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api")
 public class AuthController {
     private final GuestRepository guestRepository;
 
@@ -16,12 +16,12 @@ public class AuthController {
         this.guestRepository = guestRepository;
     }
 
-    @GetMapping
+    @GetMapping("/auth")
     public Guest Auth() {
         return guestRepository.findById(1L).orElseThrow();
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public boolean Register(RegisterGuestDto request) {
         Guest guest = new Guest();
         guest.Name = request.Name;
