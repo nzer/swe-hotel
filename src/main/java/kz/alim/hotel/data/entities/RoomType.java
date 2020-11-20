@@ -18,4 +18,6 @@ public class RoomType {
     public Hotel Hotel;
     @ManyToMany
     public List<RoomFeature> Features;
+    @OneToMany(mappedBy = "RoomType")
+    public List<RoomOffer> RoomOffers;
 }

@@ -50,6 +50,17 @@ public class ReservationController {
         return reservationRepository.findByPayingGuestId(guestId);
     }
 
+    @GetMapping("/delete")
+    public boolean DeleteReservation(Long reservationId) {
+        try {
+            reservationRepository.deleteById(reservationId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public static class CheckAvailabilityRequestDto implements Serializable {
         public Long hotelId;
         public LocalDateTime start;

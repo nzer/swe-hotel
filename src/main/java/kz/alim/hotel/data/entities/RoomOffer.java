@@ -12,7 +12,7 @@ public class RoomOffer {
     @ElementCollection
     public List<DayOfWeek> Days;
     @ManyToOne
-    public Room Room;
+    public RoomType RoomType;
     @ManyToOne
     public Season Season;
     @ManyToMany

@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class MyUserDetailsService implements UserDetailsService {
     public static final String ROLE_GUEST = "GUEST";
+    public static final String ROLE_CLERK = "CLERK";
     private final AccountRepository accountRepository;
 
     public MyUserDetailsService(AccountRepository accountRepository) {
@@ -31,6 +32,11 @@ public class MyUserDetailsService implements UserDetailsService {
             userDetails = userDetails
                     .authorities(ROLE_GUEST)
                     .roles(ROLE_GUEST);
+        }
+        if (account.Role == Account.AccountRole.CLERK) {
+            userDetails = userDetails
+                    .authorities(ROLE_CLERK)
+                    .roles(ROLE_CLERK);
         }
         return userDetails.build();
     }
