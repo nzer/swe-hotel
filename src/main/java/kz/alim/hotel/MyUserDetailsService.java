@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class MyUserDetailsService implements UserDetailsService {
     public static final String ROLE_GUEST = "GUEST";
     public static final String ROLE_CLERK = "CLERK";
+    public static final String ROLE_MANAGER = "MANAGER";
     private final AccountRepository accountRepository;
 
     public MyUserDetailsService(AccountRepository accountRepository) {
@@ -24,7 +25,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Account account = accountRepository.findByLogin(s);
         if (account == null)
-            throw new UsernameNotFoundException("Guest not found");
+            throw new UsernameNotFoundException("Account not found");
         User.UserBuilder userDetails = User.builder()
                 .username(s)
                 .password(account.Password);
@@ -37,6 +38,11 @@ public class MyUserDetailsService implements UserDetailsService {
             userDetails = userDetails
                     .authorities(ROLE_CLERK)
                     .roles(ROLE_CLERK);
+        }
+        if (account.Role == Account.AccountRole.MANAGER) {
+            userDetails = userDetails
+                    .authorities(ROLE_MANAGER)
+                    .roles(ROLE_MANAGER);
         }
         return userDetails.build();
     }
