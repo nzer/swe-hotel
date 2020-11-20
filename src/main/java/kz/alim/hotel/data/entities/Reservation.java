@@ -17,4 +17,6 @@ public class Reservation {
     public List<Guest> Occupants;
     @ManyToOne
     public Room Room;
+    @ManyToOne
+    public RoomOffer RoomOffer;
 }
