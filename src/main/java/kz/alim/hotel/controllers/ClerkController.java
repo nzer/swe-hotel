@@ -8,6 +8,7 @@ import kz.alim.hotel.data.entities.Guest;
 import kz.alim.hotel.data.entities.Reservation;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -83,7 +84,7 @@ public class ClerkController {
         return guestRepository.findAll();
     }
 
-    public static class ClerkCreateReservationDto {
+    public static class ClerkCreateReservationDto implements Serializable {
         public long guestId;
         public long roomId;
         public Long roomOfferId;
@@ -91,18 +92,18 @@ public class ClerkController {
         public LocalDateTime finish;
     }
 
-    public static class ClerkModifyGuestsAtReservationDto {
+    public static class ClerkModifyGuestsAtReservationDto implements Serializable {
         public long guestId;
         public long reservationId;
     }
 
-    public static class ClerkUpdateReservationDto {
+    public static class ClerkUpdateReservationDto implements Serializable {
         public long reservationId;
         public LocalDateTime start;
         public LocalDateTime finish;
     }
 
-    public static class ClerkCancelReservationDto {
+    public static class ClerkCancelReservationDto implements Serializable {
         public long reservationId;
     }
 }
