@@ -1,9 +1,6 @@
 package kz.alim.hotel.controllers;
 
-import kz.alim.hotel.data.GuestRepository;
-import kz.alim.hotel.data.HotelRepository;
-import kz.alim.hotel.data.ReservationRepository;
-import kz.alim.hotel.data.RoomRepository;
+import kz.alim.hotel.data.*;
 import kz.alim.hotel.data.entities.Hotel;
 import kz.alim.hotel.data.entities.Reservation;
 import kz.alim.hotel.data.entities.Room;
@@ -20,12 +17,14 @@ public class ReservationController {
     private final ReservationRepository reservationRepository;
     private final RoomRepository roomRepository;
     private final GuestRepository guestRepository;
+    private final RoomOfferRepository roomOfferRepository;
 
-    public ReservationController(HotelRepository hotelRepository, ReservationRepository reservationRepository, RoomRepository roomRepository, GuestRepository guestRepository) {
+    public ReservationController(HotelRepository hotelRepository, ReservationRepository reservationRepository, RoomRepository roomRepository, GuestRepository guestRepository, RoomOfferRepository roomOfferRepository) {
         this.hotelRepository = hotelRepository;
         this.reservationRepository = reservationRepository;
         this.roomRepository = roomRepository;
         this.guestRepository = guestRepository;
+        this.roomOfferRepository = roomOfferRepository;
     }
 
     @PostMapping("/check")
@@ -38,6 +37,7 @@ public class ReservationController {
     public boolean MakeReservation(@RequestBody MakeReservationRequestDto request) {
         Reservation reservation = new Reservation();
         reservation.Room = roomRepository.findById(request.roomId).orElseThrow();
+        reservation.RoomOffer = roomOfferRepository.findById(request.roomOfferId).orElseThrow();
         reservation.Start = request.start;
         reservation.End = request.finish;
         reservation.PayingGuest = guestRepository.findById(1L).orElseThrow();
@@ -69,6 +69,7 @@ public class ReservationController {
 
     public static class MakeReservationRequestDto implements Serializable {
         public Long roomId;
+        public Long roomOfferId;
         public LocalDateTime start;
         public LocalDateTime finish;
     }
