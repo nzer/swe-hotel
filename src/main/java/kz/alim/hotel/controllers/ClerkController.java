@@ -6,11 +6,10 @@ import kz.alim.hotel.data.RoomOfferRepository;
 import kz.alim.hotel.data.RoomRepository;
 import kz.alim.hotel.data.entities.Guest;
 import kz.alim.hotel.data.entities.Reservation;
-import kz.alim.hotel.data.entities.Room;
-import kz.alim.hotel.data.entities.RoomOffer;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 // As a desk clerk, I want to cancel, create, and change, bookings so that I can fulfill guest requests
 
@@ -29,7 +28,7 @@ public class ClerkController {
         this.roomOfferRepository = roomOfferRepository;
     }
 
-    @PostMapping
+    @PostMapping("/reservation/create")
     public boolean Create(@RequestBody ClerkCreateReservationDto request) {
         Reservation reservation = new Reservation();
         reservation.PayingGuest = guestRepository.findById(request.guestId).orElseThrow();
@@ -41,7 +40,7 @@ public class ClerkController {
         return true;
     }
 
-    @PostMapping
+    @PostMapping("/reservation/update")
     public boolean Update(@RequestBody ClerkUpdateReservationDto request) {
         Reservation reservation = reservationRepository.findById(request.reservationId).orElseThrow();
         reservation.Start = request.start;
@@ -50,7 +49,7 @@ public class ClerkController {
         return true;
     }
 
-    @PostMapping
+    @PostMapping("/reservation/cancel")
     public boolean Cancel(@RequestBody ClerkCancelReservationDto request) {
         try {
             reservationRepository.deleteById(request.reservationId);
@@ -61,7 +60,7 @@ public class ClerkController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/reservation/guests/add")
     public boolean AddGuest(@RequestBody ClerkModifyGuestsAtReservationDto request) {
         Reservation reservation = reservationRepository.findById(request.reservationId).orElseThrow();
         Guest guest = guestRepository.findById(request.guestId).orElseThrow();
@@ -70,13 +69,18 @@ public class ClerkController {
         return true;
     }
 
-    @PostMapping
+    @PostMapping("/reservation/guests/delete")
     public boolean DeleteGuest(@RequestBody ClerkModifyGuestsAtReservationDto request) {
         Reservation reservation = reservationRepository.findById(request.reservationId).orElseThrow();
         Guest guest = guestRepository.findById(request.guestId).orElseThrow();
         reservation.Occupants.remove(guest);
         reservationRepository.save(reservation);
         return true;
+    }
+
+    @GetMapping("/guestList")
+    public Iterable<Guest> GetAllGuests() {
+        return guestRepository.findAll();
     }
 
     public static class ClerkCreateReservationDto {
