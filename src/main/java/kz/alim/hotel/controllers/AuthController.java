@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final GuestRepository guestRepository;
-    private final PasswordEncoder encoder;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthController(GuestRepository guestRepository) {
         this.guestRepository = guestRepository;
-        encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     @GetMapping("/signin")
@@ -34,7 +34,7 @@ public class AuthController {
         guest.HomePhone = request.HomePhone;
         guest.MobilePhone = request.MobilePhone;
         guest.Login = request.Login;
-        guest.Password = encoder.encode(request.Password);
+        guest.Password = passwordEncoder.encode(request.Password);
         guest.Role = Account.AccountRole.GUEST;
         guestRepository.save(guest);
         return true;
