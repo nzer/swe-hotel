@@ -8,7 +8,13 @@ INSERT INTO hotel.hotel_phones (hotel_id, phones)
 VALUES (1, '+77278132222');
 
 INSERT INTO hotel.account (id, login, password, role)
-VALUES ('1', 'tester', '1', 'GUEST');
+VALUES ('1', 'tester', '1', 0);
+
+INSERT INTO hotel.account (id, login, password, role)
+VALUES ('2', 'clerk', '1', 1);
+
+INSERT INTO hotel.account (id, login, password, role)
+VALUES ('3', 'manager', '1', 2);
 
 INSERT INTO hotel.guest (id, address, home_phone, identity_type, mobile_phone, name, type_id)
 VALUES (1, 'Abay 44', '+77272336611', 'Passport', '+77779995566', 'Dima', null);
