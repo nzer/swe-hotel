@@ -29,6 +29,11 @@ public class ClerkController {
         this.roomOfferRepository = roomOfferRepository;
     }
 
+    @PostMapping("/reservation/list")
+    public Iterable<Reservation> List() {
+        return reservationRepository.findAll();
+    }
+
     @PostMapping("/reservation/create")
     public boolean Create(@RequestBody ClerkCreateReservationDto request) {
         Reservation reservation = new Reservation();
