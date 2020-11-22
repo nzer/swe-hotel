@@ -29,7 +29,7 @@ public class ClerkController {
         this.roomOfferRepository = roomOfferRepository;
     }
 
-    @PostMapping("/reservation/list")
+    @GetMapping("/reservation/list")
     public Iterable<Reservation> List() {
         return reservationRepository.findAll();
     }

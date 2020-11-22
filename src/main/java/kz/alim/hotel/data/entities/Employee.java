@@ -6,10 +6,10 @@ import javax.persistence.*;
 public class Employee extends Account {
     @ManyToOne
     public Hotel Hotel;
-    @Enumerated(EnumType.STRING)
-    public EmployeeType EmployeeType;
+    @Enumerated
+    public EmployeeTypeEnum EmployeeType;
 
-    public enum EmployeeType {
+    public enum EmployeeTypeEnum {
         Manager, Admin, Cleaner
     }
 }

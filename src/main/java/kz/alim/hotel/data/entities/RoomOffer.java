@@ -1,5 +1,7 @@
 package kz.alim.hotel.data.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,6 +14,7 @@ public class RoomOffer {
     @ElementCollection
     public List<DayOfWeek> Days;
     @ManyToOne
+    @JsonBackReference
     public RoomType RoomType;
     @ManyToOne
     public Season Season;
