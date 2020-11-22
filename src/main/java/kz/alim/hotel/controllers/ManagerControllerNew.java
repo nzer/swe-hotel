@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-@RequestMapping("/api/manager")
+@RequestMapping("/admin/manager")
 public class ManagerControllerNew {
 
     public final SeasonRepository seasonRepository;

@@ -1,8 +1,5 @@
-<#import "parts/common.ftl" as c>
-
-<@c.page>
 <div class="row">
-    <#include "parts/info2.ftl">
+    Test
+<#--    <#include "parts/info.ftl">-->
 </div>
-</@c.page>
 
