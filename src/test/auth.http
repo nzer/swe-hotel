@@ -1,8 +1,14 @@
 GET http://localhost:8080/api/auth/signin
-Authorization: Basic user 1
+Authorization: Basic Tima 123
 
 ###
-GET http://localhost:8080/api/auth
+GET http://localhost:8080/api/auth/signin
+
+###
+GET http://localhost:8080/api/auth/logout
+
+###
+GET http://localhost:8080/api/auth/signin
 
 ###
 POST http://localhost:8080/api/auth/register

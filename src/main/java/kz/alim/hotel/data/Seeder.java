@@ -23,8 +23,9 @@ public class Seeder implements ApplicationRunner {
     public final RoomRepository roomRepository;
     public final RoomFeatureRepository roomFeatureRepository;
     public final HotelRepository hotelRepository;
+    public final RoomServiceRepository roomServiceRepository;
 
-    public Seeder(RoomOfferRepository roomOfferRepository, SeasonRepository seasonRepository, RoomTypeRepository roomTypeRepository, AuthController authController, RoomRepository roomRepository, RoomFeatureRepository roomFeatureRepository, HotelRepository hotelRepository) {
+    public Seeder(RoomOfferRepository roomOfferRepository, SeasonRepository seasonRepository, RoomTypeRepository roomTypeRepository, AuthController authController, RoomRepository roomRepository, RoomFeatureRepository roomFeatureRepository, HotelRepository hotelRepository, RoomServiceRepository roomServiceRepository) {
         this.roomOfferRepository = roomOfferRepository;
         this.seasonRepository = seasonRepository;
         this.roomTypeRepository = roomTypeRepository;
@@ -32,6 +33,7 @@ public class Seeder implements ApplicationRunner {
         this.roomRepository = roomRepository;
         this.roomFeatureRepository = roomFeatureRepository;
         this.hotelRepository = hotelRepository;
+        this.roomServiceRepository = roomServiceRepository;
     }
 
     @Override
@@ -51,8 +53,26 @@ public class Seeder implements ApplicationRunner {
         Hotel hotel1 = new Hotel();
         hotel1.Address = "Dostyk 33";
         hotel1.Name = "VIP Hotel";
-        hotel1.Phones = Arrays.asList("+213123", "+843200123");
+        hotel1.Phones = Arrays.asList("+7 (727) 264‒02‒16", "+7 (727) 385‒10‒00");
         hotelRepository.save(hotel1);
+
+        HotelService service1 = new HotelService();
+        service1.Name = "Dry clean";
+        service1.Hotel = hotel1;
+        service1.Price = 3000;
+        HotelService service2 = new HotelService();
+        service2.Name = "Childcare";
+        service2.Hotel = hotel1;
+        service2.Price = 6000;
+        HotelService service3 = new HotelService();
+        service3.Name = "SPA";
+        service3.Hotel = hotel1;
+        service3.Price = 30000;
+        HotelService service4 = new HotelService();
+        service4.Name = "Airport transfer";
+        service4.Hotel = hotel1;
+        service4.Price = 5000;
+        roomServiceRepository.saveAll(Arrays.asList(service1, service2, service3, service4));
 
         Season season = new Season();
         season.Start = LocalDateTime.now().minus(1, ChronoUnit.YEARS);

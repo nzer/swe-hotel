@@ -15,7 +15,10 @@
             margin-left: 8px;
         }
         .adminCard {
-            background: antiquewhite; margin-bottom: 12px;
+            background: antiquewhite;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            padding: 4px;
         }
     </style>
 </head>

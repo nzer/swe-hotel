@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.Serializable;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -49,8 +50,13 @@ public class ReservationController {
 
     @GetMapping("/list")
     public List<Reservation> GetGuestsReservations(Principal principal) {
-        Guest guest = guestRepository.findByLogin(principal.getName());
-        return reservationRepository.findByPayingGuestId(guest.Id);
+        try {
+            Guest guest = guestRepository.findByLogin(principal.getName());
+            return reservationRepository.findByPayingGuestId(guest.Id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     @GetMapping("/delete")
