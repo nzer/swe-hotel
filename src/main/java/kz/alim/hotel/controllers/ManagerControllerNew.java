@@ -2,12 +2,14 @@ package kz.alim.hotel.controllers;
 
 import kz.alim.hotel.data.entities.*;
 import kz.alim.hotel.data.repositories.*;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,6 +36,12 @@ public class ManagerControllerNew {
     @GetMapping("/main")
     public String main() {
         return "main";
+    }
+
+    @PostMapping("/season")
+    public String add(@RequestBody Season season) {
+        System.out.println(season);
+        return "season";
     }
 
     @PostMapping("/seasons/add")

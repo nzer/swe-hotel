@@ -3,9 +3,8 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8"/>
-    <title>Merchant</title>
+    <title>Admin panel</title>
     <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="shortcut icon" href="static/image/302f8adb-bcc8-4031-b816-43c96a16e332.jpg" />
     <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -13,9 +12,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 </head>
 <body>
-<div id="headerContainer">
-    <#include "navbar.ftl">
-</div>
 <div id="main" class="py-2">
     <#nested>
 </div>
