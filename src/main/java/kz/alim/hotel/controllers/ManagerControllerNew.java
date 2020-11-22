@@ -88,15 +88,18 @@ public class ManagerControllerNew {
     }
 
 
-    @PostMapping("/rooms/add")
-    public Room AddRoom(@RequestBody AddRoomDto request) {
+    @PostMapping("/rooms")
+    public String AddRoom(Model model, @RequestParam String number, @RequestParam int floor,
+                        @RequestParam long hotelId, @RequestParam long hotelTypeId) {
         Room r = new Room();
-        r.Floor = request.Floor;
-        r.Number = request.Number;
-        r.Hotel = hotelRepository.findById(request.HotelId).orElseThrow();
-        r.Type = roomTypeRepository.findById(request.RoomTypeId).orElseThrow();
+        r.Number = number;
+        r.Floor = floor;
+        r.Hotel = hotelRepository.findById(hotelId).orElseThrow();
+        r.Type = roomTypeRepository.findById(hotelTypeId).orElseThrow();
         roomRepository.save(r);
-        return r;
+        model.addAttribute("hotelTypes", roomTypeRepository.findAll());
+        model.addAttribute("hotels", hotelRepository.findAll());
+        return "rooms";
     }
 
     @PostMapping("/rooms_types/add")
