@@ -3,12 +3,10 @@
 <@c.page>
     <div class="row">
         <div class="col-6">
-            <h4>Seasons list</h4>
-            <#list seasons as s>
+            <h4>Rooms list</h4>
+            <#list features as f>
                 <div class="adminCard">
-                    <p>${s.name}</p>
-                    <p>${s.start}</p>
-                    <p>${s.end}</p>
+                    <p>Name: ${f.name}</p>
                 </div>
             </#list>
         </div>
@@ -16,16 +14,10 @@
             <h4>Add new</h4>
             <div id="season-form">
                 <div class="form-group">
-                    <form method="post" enctype="multipart/form-data">
+                    <form method="post">
                         <div class="modal-body">
                             <div class="form-group">
-                                <input type="text" name="name" class="form-control" placeholder="Name" />
-                            </div>
-                            <div class="form-group">
-                                <input type="date" name="start" class="form-control" placeholder="Start">
-                            </div>
-                            <div class="form-group">
-                                <input type="date" name="end" class="form-control" placeholder="End">
+                                <input type="text" name="name" class="form-control" placeholder="Name">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary"><b>Сохранить</b></button>

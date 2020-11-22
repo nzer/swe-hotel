@@ -10,8 +10,22 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        header > * {
+            margin-left: 8px;
+        }
+        .adminCard {
+            background: antiquewhite; margin-bottom: 12px;
+        }
+    </style>
 </head>
 <body>
+<header style="display: flex; flex-direction: row; align-items: first baseline;">
+    <h2>Manager Admin Panel</h2>
+    <a href="/admin/manager/season">Seasons</a>
+    <a href="/admin/manager/roomType">Room types</a>
+    <a href="/admin/manager/features">Features</a>
+</header>
 <div class="container">
     <#nested>
 </div>

@@ -5,7 +5,7 @@
         <div class="col-6">
             <h4>Rooms list</h4>
             <#list types as t>
-                <div style="background: antiquewhite; margin-bottom: 12px;">
+                <div class="adminCard">
                     <p>Name: ${t.name}</p>
                     <p>Capacity: ${t.capacity}</p>
                     <p>Size: ${t.size}</p>

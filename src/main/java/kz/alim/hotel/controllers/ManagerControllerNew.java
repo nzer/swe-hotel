@@ -81,10 +81,17 @@ public class ManagerControllerNew {
 
     @GetMapping("/features")
     public String FeaturesGet(Model model) {
-        model.addAttribute("types", roomTypeRepository.findAll());
-        model.addAttribute("hotels", hotelRepository.findAll());
         model.addAttribute("features", roomFeatureRepository.findAll());
-        return "roomsType";
+        return "features";
+    }
+
+    @PostMapping("/features")
+    public String FeaturesPost(Model model, @RequestParam String name) {
+        RoomFeature f = new RoomFeature();
+        f.Name = name;
+        roomFeatureRepository.save(f);
+        model.addAttribute("features", roomFeatureRepository.findAll());
+        return "features";
     }
 
 
