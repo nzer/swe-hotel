@@ -17,4 +17,20 @@ public class Room {
     public Hotel Hotel;
     @ManyToOne
     public RoomType Type;
+
+    public long getId() {
+        return Id;
+    }
+
+    public String getNumber() {
+        return Number;
+    }
+
+    public int getFloor() {
+        return Floor;
+    }
+
+    public RoomType getType() {
+        return Type;
+    }
 }

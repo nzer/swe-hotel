@@ -2,15 +2,16 @@ package kz.alim.hotel.controllers;
 
 import kz.alim.hotel.data.entities.*;
 import kz.alim.hotel.data.repositories.*;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -38,19 +39,28 @@ public class ManagerControllerNew {
         return "main";
     }
 
-    @PostMapping("/season")
-    public String add(@RequestBody Season season) {
-        System.out.println(season);
-        return "season";
+    @GetMapping("/season")
+    public String AddSeasonGet(Model model) {
+        model.addAttribute("seasons", seasonRepository.findAll());
+        return "seasons";
     }
 
-    @PostMapping("/seasons/add")
-    public void AddSeason(@RequestBody AddSeasonDto request) {
-        Season season = new Season();
-        season.Name = request.Name;
-        season.Start = request.Start;
-        season.End = request.End;
-        seasonRepository.save(season);
+    @PostMapping("/season")
+    public String AddSeasonPost(Model model, @RequestParam String name, @RequestParam String start, @RequestParam String end) {
+        Season s = new Season(); // 2020-11-17
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        s.Name = name;
+        s.Start = LocalDate.parse(start, formatter).atTime(0,0);
+        s.End = LocalDate.parse(end, formatter).atTime(0,0);
+        seasonRepository.save(s);
+        model.addAttribute("seasons", seasonRepository.findAll());
+        return "seasons";
+    }
+
+    @GetMapping("/room")
+    public String RoomsGet(Model model) {
+        model.addAttribute("rooms", roomRepository.findAll());
+        return "rooms";
     }
 
     @PostMapping("/rooms/add")
