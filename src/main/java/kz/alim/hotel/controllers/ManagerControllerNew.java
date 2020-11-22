@@ -32,7 +32,7 @@ public class ManagerControllerNew {
         this.hotelRepository = hotelRepository;
     }
 
-    @GetMapping("/main")
+    @GetMapping("/")
     public String main() {
         return "main";
     }
@@ -56,7 +56,7 @@ public class ManagerControllerNew {
     }
 
     @GetMapping("/roomType")
-    public String RoomsGet(Model model) {
+    public String RoomTypeGet(Model model) {
         model.addAttribute("types", roomTypeRepository.findAll());
         model.addAttribute("hotels", hotelRepository.findAll());
         model.addAttribute("features", roomFeatureRepository.findAll());
@@ -64,7 +64,7 @@ public class ManagerControllerNew {
     }
 
     @PostMapping("/roomType")
-    public String RoomsPost(Model model, @RequestParam String name, @RequestParam float size, @RequestParam int capacity,
+    public String RoomTypePost(Model model, @RequestParam String name, @RequestParam float size, @RequestParam int capacity,
                             @RequestParam long hotelId, @RequestParam Long[] featureId) {
         RoomType roomType = new RoomType();
         roomType.Name = name;
@@ -94,9 +94,16 @@ public class ManagerControllerNew {
         return "features";
     }
 
+    @GetMapping("/rooms")
+    public String RoomGet(Model model) {
+        model.addAttribute("rooms", roomRepository.findAll());
+        model.addAttribute("hotelTypes", roomTypeRepository.findAll());
+        model.addAttribute("hotels", hotelRepository.findAll());
+        return "rooms";
+    }
 
     @PostMapping("/rooms")
-    public String AddRoom(Model model, @RequestParam String number, @RequestParam int floor,
+    public String RoomPost(Model model, @RequestParam String number, @RequestParam int floor,
                         @RequestParam long hotelId, @RequestParam long hotelTypeId) {
         Room r = new Room();
         r.Number = number;
@@ -107,64 +114,5 @@ public class ManagerControllerNew {
         model.addAttribute("hotelTypes", roomTypeRepository.findAll());
         model.addAttribute("hotels", hotelRepository.findAll());
         return "rooms";
-    }
-
-    @PostMapping("/rooms_types/add")
-    public RoomType AddRoomType(@RequestBody AddRoomTypeDto request) {
-        RoomType r = new RoomType();
-        r.Name = request.Name;
-        r.Capacity = request.Capacity;
-        r.Size = request.Size;
-        r.Hotel = hotelRepository.findById(request.HotelId).orElseThrow();
-        r.Features = roomFeatureRepository.findAllById(request.FeaturesId);
-        return r;
-    }
-
-    @PostMapping("/rooms_types/list")
-    public Iterable<RoomType> AllRoomTypes() {
-        return roomTypeRepository.findAll();
-    }
-
-    @PostMapping("/rooms_features/add")
-    public RoomFeature AddRoomFeature(@RequestBody AddRoomFeatureDto request) {
-        RoomFeature r = new RoomFeature();
-        r.Name = request.Name;
-        roomFeatureRepository.save(r);
-        return r;
-    }
-
-    @PostMapping("/rooms_features/list")
-    public Iterable<RoomFeature> AllRoomFeatures() {
-        return roomFeatureRepository.findAll();
-    }
-
-    @PostMapping("/hotels/list")
-    public Iterable<Hotel> AllHotels() {
-        return hotelRepository.findAll();
-    }
-
-    public static class AddSeasonDto {
-        public String Name;
-        public LocalDateTime Start;
-        public LocalDateTime End;
-    }
-
-    public static class AddRoomDto {
-        public String Number;
-        public int Floor;
-        public long HotelId;
-        public long RoomTypeId;
-    }
-
-    public static class AddRoomTypeDto {
-        public String Name;
-        public float Size;
-        public int Capacity;
-        public long HotelId;
-        public List<Long> FeaturesId;
-    }
-
-    public static class AddRoomFeatureDto {
-        public String Name;
     }
 }

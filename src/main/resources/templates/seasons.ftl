@@ -6,9 +6,9 @@
             <h4>Seasons list</h4>
             <#list seasons as s>
                 <div class="adminCard">
-                    <p>${s.name}</p>
-                    <p>${s.start}</p>
-                    <p>${s.end}</p>
+                    <p>Name: ${s.name}</p>
+                    <p>Start: ${s.start}</p>
+                    <p>End: ${s.end}</p>
                 </div>
             </#list>
         </div>

@@ -25,6 +25,7 @@
     <a href="/admin/manager/season">Seasons</a>
     <a href="/admin/manager/roomType">Room types</a>
     <a href="/admin/manager/features">Features</a>
+    <a href="/admin/manager/rooms">Rooms</a>
 </header>
 <div class="container">
     <#nested>
