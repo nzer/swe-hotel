@@ -1,0 +1,92 @@
+#main {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.nav-link.nav-link.ml-3 {
+    cursor: pointer;
+}
+
+#main-frame {
+    border-left: 12px solid #007BFF;
+    border-radius: 30px 0px 0px 30px;
+    border-top: 12px solid #007BFF;
+    border-bottom: 12px solid #007BFF;
+}
+
+#sidebar {
+    border-bottom: 12px solid #007BFF;
+    border-right: 12px solid #007BFF;
+    border-top: 12px solid #007BFF;
+    border-radius: 0px 30px 30px 0px;
+}
+
+.footer-copyright {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: #006972;
+}
+
+.main-form {
+    display: flex;
+    background-color: #00A9CF;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: calc(10px + 3vw);
+    height: 20vw;
+}
+
+.main-form:hover {
+    background-color: #0081A7;
+    font-family: 'Oswald', sans-serif;
+}
+
+.table-list {
+    height: 60vh;
+    overflow: auto;
+}
+
+.table-names {
+    font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+}
+
+li:hover {
+    background: #FFBE0A;
+}
+
+#special-info {
+    height: 70vh;
+}
+
+.header-menu {
+    font-size: large;
+}
+
+.open-button {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+}
+
+.form-popup {
+    border-style: solid;
+    border-color: black;
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 14px;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: grey;
+}
+
+.myBar {
+  width: 60%;
+  height: 30px;
+  background-color: green;
+}
