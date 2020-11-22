@@ -49,11 +49,35 @@ public class Seeder implements ApplicationRunner {
         RoomFeature rf5 = new RoomFeature();
         rf5.Name = "Hairdryer";
         roomFeatureRepository.saveAll(Arrays.asList(rf1, rf2, rf3, rf4, rf5));
+        Season season = new Season();
+        season.Start = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
+        season.End = LocalDateTime.now().plus(1, ChronoUnit.YEARS);
+        season.Name = "Yearly season";
+        seasonRepository.save(season);
 
+        String[] phones1 = {"+7 (727) 264‒02‒16", "+7 (727) 385‒10‒00"};
+        genHotel("VIP Hotel", "Dostyk 33",  phones1);
+        String[] phones2 = {"+7 (727) 262‒42‒86", "+7 (707) 869‒02‒53"};
+        genHotel("Silver Hotel", "Satpaeva 23", phones2);
+
+        // Seed users
+
+        AuthController.RegisterGuestDto registerGuestDto = new AuthController.RegisterGuestDto();
+        registerGuestDto.Name = "Tima";
+        registerGuestDto.Login = "Tima";
+        registerGuestDto.Password = "123";
+        registerGuestDto.Address = "Dostyk 66";
+        registerGuestDto.HomePhone = "213421";
+        registerGuestDto.MobilePhone = "213421";
+        authController.Register(registerGuestDto);
+        authController.RegisterManager("Boss", "123");
+    }
+
+    private void genHotel(String name, String address, String[] phones) {
         Hotel hotel1 = new Hotel();
-        hotel1.Address = "Dostyk 33";
-        hotel1.Name = "VIP Hotel";
-        hotel1.Phones = Arrays.asList("+7 (727) 264‒02‒16", "+7 (727) 385‒10‒00");
+        hotel1.Address = address;
+        hotel1.Name = name;
+        hotel1.Phones = Arrays.asList(phones);
         hotelRepository.save(hotel1);
 
         HotelService service1 = new HotelService();
@@ -74,11 +98,7 @@ public class Seeder implements ApplicationRunner {
         service4.Price = 5000;
         roomServiceRepository.saveAll(Arrays.asList(service1, service2, service3, service4));
 
-        Season season = new Season();
-        season.Start = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
-        season.End = LocalDateTime.now().plus(1, ChronoUnit.YEARS);
-        season.Name = "Yearly season";
-        seasonRepository.save(season);
+        Season season = seasonRepository.findById(1L).orElseThrow();
 
         // Generate rooms
 
@@ -106,18 +126,6 @@ public class Seeder implements ApplicationRunner {
                 roomRepository.save(room);
             }
         }
-
-        // Seed users
-
-        AuthController.RegisterGuestDto registerGuestDto = new AuthController.RegisterGuestDto();
-        registerGuestDto.Name = "Tima";
-        registerGuestDto.Login = "Tima";
-        registerGuestDto.Password = "123";
-        registerGuestDto.Address = "Dostyk 66";
-        registerGuestDto.HomePhone = "213421";
-        registerGuestDto.MobilePhone = "213421";
-        authController.Register(registerGuestDto);
-        authController.RegisterManager("Boss", "123");
     }
 
     private void genRoomOffer(RoomType rt1, Season season) {
