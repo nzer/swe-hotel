@@ -4,14 +4,12 @@ import kz.alim.hotel.data.entities.*;
 import kz.alim.hotel.data.repositories.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -50,18 +48,45 @@ public class ManagerControllerNew {
         Season s = new Season(); // 2020-11-17
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         s.Name = name;
-        s.Start = LocalDate.parse(start, formatter).atTime(0,0);
-        s.End = LocalDate.parse(end, formatter).atTime(0,0);
+        s.Start = LocalDate.parse(start, formatter).atTime(0, 0);
+        s.End = LocalDate.parse(end, formatter).atTime(0, 0);
         seasonRepository.save(s);
         model.addAttribute("seasons", seasonRepository.findAll());
         return "seasons";
     }
 
-    @GetMapping("/room")
+    @GetMapping("/roomType")
     public String RoomsGet(Model model) {
-        model.addAttribute("rooms", roomRepository.findAll());
-        return "rooms";
+        model.addAttribute("types", roomTypeRepository.findAll());
+        model.addAttribute("hotels", hotelRepository.findAll());
+        model.addAttribute("features", roomFeatureRepository.findAll());
+        return "roomsType";
     }
+
+    @PostMapping("/roomType")
+    public String RoomsPost(Model model, @RequestParam String name, @RequestParam float size, @RequestParam int capacity,
+                            @RequestParam long hotelId, @RequestParam Long[] featureId) {
+        RoomType roomType = new RoomType();
+        roomType.Name = name;
+        roomType.Capacity = capacity;
+        roomType.Size = size;
+        roomType.Features = roomFeatureRepository.findAllById(Arrays.asList(featureId));
+        roomType.Hotel = hotelRepository.findById(hotelId).orElseThrow();
+        roomTypeRepository.save(roomType);
+        model.addAttribute("types", roomTypeRepository.findAll());
+        model.addAttribute("hotels", hotelRepository.findAll());
+        model.addAttribute("features", roomFeatureRepository.findAll());
+        return "roomsType";
+    }
+
+    @GetMapping("/features")
+    public String FeaturesGet(Model model) {
+        model.addAttribute("types", roomTypeRepository.findAll());
+        model.addAttribute("hotels", hotelRepository.findAll());
+        model.addAttribute("features", roomFeatureRepository.findAll());
+        return "roomsType";
+    }
+
 
     @PostMapping("/rooms/add")
     public Room AddRoom(@RequestBody AddRoomDto request) {

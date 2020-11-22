@@ -23,4 +23,12 @@ public class Hotel {
     @OneToMany(mappedBy = "Hotel")
     @JsonManagedReference
     public List<HotelService> Services;
+
+    public long getId() {
+        return Id;
+    }
+
+    public String getName() {
+        return Name;
+    }
 }

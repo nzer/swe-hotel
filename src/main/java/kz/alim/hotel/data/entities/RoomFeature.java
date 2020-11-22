@@ -11,4 +11,12 @@ public class RoomFeature {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long Id;
     public String Name;
+
+    public long getId() {
+        return Id;
+    }
+
+    public String getName() {
+        return Name;
+    }
 }

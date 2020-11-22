@@ -22,4 +22,20 @@ public class RoomType {
     @OneToMany(mappedBy = "RoomType")
     @JsonManagedReference
     public List<RoomOffer> RoomOffers;
+
+    public long getId() {
+        return Id;
+    }
+
+    public String getName() {
+        return Name;
+    }
+
+    public float getSize() {
+        return Size;
+    }
+
+    public int getCapacity() {
+        return Capacity;
+    }
 }
