@@ -1,6 +1,6 @@
 package kz.alim.hotel.controllers;
 
-import kz.alim.hotel.data.HotelRepository;
+import kz.alim.hotel.data.repositories.HotelRepository;
 import kz.alim.hotel.data.entities.Hotel;
 import org.springframework.web.bind.annotation.*;
 

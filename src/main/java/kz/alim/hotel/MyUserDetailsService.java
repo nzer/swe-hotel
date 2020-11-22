@@ -1,6 +1,6 @@
 package kz.alim.hotel;
 
-import kz.alim.hotel.data.AccountRepository;
+import kz.alim.hotel.data.repositories.AccountRepository;
 import kz.alim.hotel.data.entities.Account;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

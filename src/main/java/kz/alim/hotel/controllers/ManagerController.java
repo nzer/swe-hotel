@@ -1,7 +1,7 @@
 package kz.alim.hotel.controllers;
 
-import kz.alim.hotel.data.*;
 import kz.alim.hotel.data.entities.*;
+import kz.alim.hotel.data.repositories.*;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -2,6 +2,7 @@ package kz.alim.hotel.data;
 
 import kz.alim.hotel.controllers.AuthController;
 import kz.alim.hotel.data.entities.*;
+import kz.alim.hotel.data.repositories.*;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;

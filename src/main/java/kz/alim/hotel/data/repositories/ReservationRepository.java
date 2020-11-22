@@ -1,4 +1,4 @@
-package kz.alim.hotel.data;
+package kz.alim.hotel.data.repositories;
 
 import kz.alim.hotel.data.entities.Reservation;
 import org.springframework.data.jpa.repository.Query;

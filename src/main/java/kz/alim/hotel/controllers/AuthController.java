@@ -1,8 +1,8 @@
 package kz.alim.hotel.controllers;
 
-import kz.alim.hotel.data.EmployeeRepository;
-import kz.alim.hotel.data.GuestRepository;
-import kz.alim.hotel.data.HotelRepository;
+import kz.alim.hotel.data.repositories.EmployeeRepository;
+import kz.alim.hotel.data.repositories.GuestRepository;
+import kz.alim.hotel.data.repositories.HotelRepository;
 import kz.alim.hotel.data.entities.Account;
 import kz.alim.hotel.data.entities.Employee;
 import kz.alim.hotel.data.entities.Guest;

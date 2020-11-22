@@ -2,10 +2,10 @@ package kz.alim.hotel.controllers;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import kz.alim.hotel.data.GuestRepository;
-import kz.alim.hotel.data.ReservationRepository;
-import kz.alim.hotel.data.RoomOfferRepository;
-import kz.alim.hotel.data.RoomRepository;
+import kz.alim.hotel.data.repositories.GuestRepository;
+import kz.alim.hotel.data.repositories.ReservationRepository;
+import kz.alim.hotel.data.repositories.RoomOfferRepository;
+import kz.alim.hotel.data.repositories.RoomRepository;
 import kz.alim.hotel.data.entities.Account;
 import kz.alim.hotel.data.entities.Guest;
 import kz.alim.hotel.data.entities.Reservation;
@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
 
 // As a desk clerk, I want to cancel, create, and change, bookings so that I can fulfill guest requests
 @RestController

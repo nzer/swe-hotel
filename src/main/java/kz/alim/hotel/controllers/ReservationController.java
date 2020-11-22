@@ -1,10 +1,10 @@
 package kz.alim.hotel.controllers;
 
-import kz.alim.hotel.data.*;
 import kz.alim.hotel.data.entities.Guest;
 import kz.alim.hotel.data.entities.Hotel;
 import kz.alim.hotel.data.entities.Reservation;
 import kz.alim.hotel.data.entities.Room;
+import kz.alim.hotel.data.repositories.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
