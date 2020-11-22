@@ -1,12 +1,14 @@
 package kz.alim.hotel.controllers;
 
 import kz.alim.hotel.data.*;
+import kz.alim.hotel.data.entities.Guest;
 import kz.alim.hotel.data.entities.Hotel;
 import kz.alim.hotel.data.entities.Reservation;
 import kz.alim.hotel.data.entities.Room;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -34,20 +36,21 @@ public class ReservationController {
     }
 
     @PostMapping("/create")
-    public boolean MakeReservation(@RequestBody MakeReservationRequestDto request) {
+    public boolean MakeReservation(Principal principal, @RequestBody MakeReservationRequestDto request) {
         Reservation reservation = new Reservation();
         reservation.Room = roomRepository.findById(request.roomId).orElseThrow();
         reservation.RoomOffer = roomOfferRepository.findById(request.roomOfferId).orElseThrow();
         reservation.Start = request.start;
         reservation.End = request.finish;
-        reservation.PayingGuest = guestRepository.findById(1L).orElseThrow();
+        reservation.PayingGuest = guestRepository.findByLogin(principal.getName());
         reservationRepository.save(reservation);
         return true;
     }
 
     @GetMapping("/list")
-    public List<Reservation> GetGuestsReservations(@RequestParam Long guestId) {
-        return reservationRepository.findByPayingGuestId(guestId);
+    public List<Reservation> GetGuestsReservations(Principal principal) {
+        Guest guest = guestRepository.findByLogin(principal.getName());
+        return reservationRepository.findByPayingGuestId(guest.Id);
     }
 
     @GetMapping("/delete")

@@ -119,7 +119,7 @@ public class Seeder implements ApplicationRunner {
     private RoomType genRoomType() {
         Random rand = new Random();
         RoomType roomType = new RoomType();
-        roomType.Size = rand.nextInt(25);
+        roomType.Size = rand.nextInt(40) + 10;
         roomType.Capacity = rand.nextInt(4) + 1;
         roomType.Name = "Room Type " + rand.nextInt(4) + 1;
         List<RoomFeature> features = roomFeatureRepository.findAll();

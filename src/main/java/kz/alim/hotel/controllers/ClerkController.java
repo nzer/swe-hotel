@@ -1,9 +1,12 @@
 package kz.alim.hotel.controllers;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import kz.alim.hotel.data.GuestRepository;
 import kz.alim.hotel.data.ReservationRepository;
 import kz.alim.hotel.data.RoomOfferRepository;
 import kz.alim.hotel.data.RoomRepository;
+import kz.alim.hotel.data.entities.Account;
 import kz.alim.hotel.data.entities.Guest;
 import kz.alim.hotel.data.entities.Reservation;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 // As a desk clerk, I want to cancel, create, and change, bookings so that I can fulfill guest requests
-
 @RestController
 @RequestMapping("/api/clerk")
 public class ClerkController {
@@ -29,6 +31,7 @@ public class ClerkController {
         this.roomOfferRepository = roomOfferRepository;
     }
 
+    @Operation(security = { @SecurityRequirement(name = "BasicAuth") })
     @GetMapping("/reservation/list")
     public Iterable<Reservation> List() {
         return reservationRepository.findAll();
@@ -84,9 +87,23 @@ public class ClerkController {
         return true;
     }
 
-    @GetMapping("/guestList")
+    @GetMapping("/guests/list")
     public Iterable<Guest> GetAllGuests() {
         return guestRepository.findAll();
+    }
+
+    @PostMapping("/guests/register")
+    public Guest RegisterGuest(@RequestBody ClerkRegisterGuestDto request) {
+        Guest guest = new Guest();
+        guest.Name = request.Name;
+        guest.Address = request.Address;
+        guest.HomePhone = request.HomePhone;
+        guest.MobilePhone = request.MobilePhone;
+        guest.Role = Account.AccountRole.GUEST;
+        guest.Login = request.Login;
+        guest.Password = "test";
+        guestRepository.save(guest);
+        return guest;
     }
 
     public static class ClerkCreateReservationDto implements Serializable {
@@ -110,5 +127,13 @@ public class ClerkController {
 
     public static class ClerkCancelReservationDto implements Serializable {
         public long reservationId;
+    }
+
+    public static class ClerkRegisterGuestDto {
+        public String Name;
+        public String Address;
+        public String HomePhone;
+        public String MobilePhone;
+        public String Login;
     }
 }
