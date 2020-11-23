@@ -38,6 +38,7 @@ public class ReservationController {
 
     @PostMapping("/create")
     public boolean MakeReservation(Principal principal, @RequestBody MakeReservationRequestDto request) {
+        if (request == null || request.start == null || request.finish == null || request.roomId == null || request.roomOfferId == null) {return false;}
         Reservation reservation = new Reservation();
         reservation.Room = roomRepository.findById(request.roomId).orElseThrow();
         reservation.RoomOffer = roomOfferRepository.findById(request.roomOfferId).orElseThrow();
