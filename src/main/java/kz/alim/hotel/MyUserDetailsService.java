@@ -15,6 +15,7 @@ public class MyUserDetailsService implements UserDetailsService {
     public static final String ROLE_GUEST = "GUEST";
     public static final String ROLE_CLERK = "CLERK";
     public static final String ROLE_MANAGER = "MANAGER";
+    public static final String ROLE_CLEANER = "CLEANER";
     private final AccountRepository accountRepository;
 
     public MyUserDetailsService(AccountRepository accountRepository) {
@@ -43,6 +44,11 @@ public class MyUserDetailsService implements UserDetailsService {
             userDetails = userDetails
                     .authorities(ROLE_MANAGER)
                     .roles(ROLE_MANAGER);
+        }
+        if (account.Role == Account.AccountRole.CLEANER) {
+            userDetails = userDetails
+                    .authorities(ROLE_CLEANER)
+                    .roles(ROLE_CLEANER);
         }
         return userDetails.build();
     }

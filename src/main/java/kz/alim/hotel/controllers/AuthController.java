@@ -47,12 +47,10 @@ public class AuthController {
         return true;
     }
 
-    @PostMapping("/register_manager")
-    public void RegisterManager(@RequestParam String login, @RequestParam String password) {
+    public void RegisterEmployee(@RequestParam String login, @RequestParam String password, Account.AccountRole role) {
         Employee e = new Employee();
         e.Hotel = hotelRepository.findById(1L).orElseThrow();
-        e.EmployeeType = Employee.EmployeeTypeEnum.Manager;
-        e.Role = Account.AccountRole.MANAGER;
+        e.Role = role;
         e.Login = login;
         e.Password = passwordEncoder.encode(password);
         employeeRepository.save(e);

@@ -15,7 +15,7 @@ public class Account {
     public AccountRole Role;
 
     public enum AccountRole {
-        GUEST, CLERK, MANAGER
+        GUEST, CLERK, MANAGER, CLEANER
     }
 
     @Override

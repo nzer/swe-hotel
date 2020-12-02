@@ -9,10 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Component
 public class Seeder implements ApplicationRunner {
@@ -24,8 +21,11 @@ public class Seeder implements ApplicationRunner {
     public final RoomFeatureRepository roomFeatureRepository;
     public final HotelRepository hotelRepository;
     public final RoomServiceRepository roomServiceRepository;
+    public final GuestRepository guestRepository;
+    public final GuestTypeRepository guestTypeRepository;
+    public final RoomOfferDiscountRepository roomOfferDiscountRepository;
 
-    public Seeder(RoomOfferRepository roomOfferRepository, SeasonRepository seasonRepository, RoomTypeRepository roomTypeRepository, AuthController authController, RoomRepository roomRepository, RoomFeatureRepository roomFeatureRepository, HotelRepository hotelRepository, RoomServiceRepository roomServiceRepository) {
+    public Seeder(RoomOfferRepository roomOfferRepository, SeasonRepository seasonRepository, RoomTypeRepository roomTypeRepository, AuthController authController, RoomRepository roomRepository, RoomFeatureRepository roomFeatureRepository, HotelRepository hotelRepository, RoomServiceRepository roomServiceRepository, GuestRepository guestRepository, GuestTypeRepository guestTypeRepository, RoomOfferDiscountRepository roomOfferDiscountRepository) {
         this.roomOfferRepository = roomOfferRepository;
         this.seasonRepository = seasonRepository;
         this.roomTypeRepository = roomTypeRepository;
@@ -34,43 +34,65 @@ public class Seeder implements ApplicationRunner {
         this.roomFeatureRepository = roomFeatureRepository;
         this.hotelRepository = hotelRepository;
         this.roomServiceRepository = roomServiceRepository;
+        this.guestRepository = guestRepository;
+        this.guestTypeRepository = guestTypeRepository;
+        this.roomOfferDiscountRepository = roomOfferDiscountRepository;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        RoomFeature rf1 = new RoomFeature();
-        rf1.Name = "Flat TV";
-        RoomFeature rf2 = new RoomFeature();
-        rf2.Name = "Freezer";
-        RoomFeature rf3 = new RoomFeature();
-        rf3.Name = "Large bathroom";
-        RoomFeature rf4 = new RoomFeature();
-        rf4.Name = "Breakfast";
-        RoomFeature rf5 = new RoomFeature();
-        rf5.Name = "Hairdryer";
-        roomFeatureRepository.saveAll(Arrays.asList(rf1, rf2, rf3, rf4, rf5));
+        List<String> roomFeatures = Arrays.asList("Flat TV", "Freezer", "Large bathroom", "Breakfast", "Hairdryer", "Mountain view");
+        for (String name : roomFeatures) {
+            RoomFeature rf = new RoomFeature();
+            rf.Name = name;
+            roomFeatureRepository.save(rf);
+        }
+
+        List<String> guestTypes = Arrays.asList("Bronze", "Silver", "Gold", "Platinum");
+        for (String guestType : guestTypes) {
+            GuestType gt = new GuestType();
+            gt.Name = guestType;
+            guestTypeRepository.save(gt);
+            genDiscount(gt);
+        }
+
         Season season = new Season();
         season.Start = LocalDateTime.now().minus(1, ChronoUnit.YEARS);
         season.End = LocalDateTime.now().plus(1, ChronoUnit.YEARS);
-        season.Name = "Yearly season";
+        season.Name = "Year round season";
         seasonRepository.save(season);
 
         String[] phones1 = {"+7 (727) 264‒02‒16", "+7 (727) 385‒10‒00"};
-        genHotel("VIP Hotel", "Dostyk 33",  phones1);
+        genHotel("Resort Hotel", "Dostyk 33",  phones1);
         String[] phones2 = {"+7 (727) 262‒42‒86", "+7 (707) 869‒02‒53"};
         genHotel("Silver Hotel", "Satpaeva 23", phones2);
 
-        // Seed users
+        genUsers();
+    }
 
+    private void genUsers() {
         AuthController.RegisterGuestDto registerGuestDto = new AuthController.RegisterGuestDto();
-        registerGuestDto.Name = "Tima";
-        registerGuestDto.Login = "Tima";
+        registerGuestDto.Name = "Mona";
+        registerGuestDto.Login = "Mona";
         registerGuestDto.Password = "123";
         registerGuestDto.Address = "Dostyk 66";
         registerGuestDto.HomePhone = "213421";
         registerGuestDto.MobilePhone = "213421";
         authController.Register(registerGuestDto);
-        authController.RegisterManager("Boss", "123");
+        Guest mona = guestRepository.findByLogin("Mona");
+        mona.GuestType = guestTypeRepository.findById(3L).orElseThrow();
+        guestRepository.save(mona);
+        AuthController.RegisterGuestDto registerGuestDto2 = new AuthController.RegisterGuestDto();
+        registerGuestDto2.Name = "Jon Smith";
+        registerGuestDto2.Login = "Smith";
+        registerGuestDto2.Password = "123";
+        registerGuestDto2.Address = "Nur-sultan 23";
+        registerGuestDto2.HomePhone = "564134";
+        registerGuestDto2.MobilePhone = "456546";
+        authController.Register(registerGuestDto2);
+        authController.RegisterEmployee("Alim", "123", Account.AccountRole.MANAGER);
+        authController.RegisterEmployee("Magjan", "123", Account.AccountRole.CLERK);
+        authController.RegisterEmployee("Sabyr", "123", Account.AccountRole.CLEANER);
     }
 
     private void genHotel(String name, String address, String[] phones) {
@@ -101,7 +123,6 @@ public class Seeder implements ApplicationRunner {
         Season season = seasonRepository.findById(1L).orElseThrow();
 
         // Generate rooms
-
         RoomType rt1 = genRoomType();
         rt1.Hotel = hotel1;
         roomTypeRepository.save(rt1);
@@ -143,6 +164,17 @@ public class Seeder implements ApplicationRunner {
         roomOffer.Season = season;
         roomOffer.RoomType = rt1;
         roomOfferRepository.save(roomOffer);
+    }
+
+    static int discountCounter = 0;
+    private RoomOfferDiscount genDiscount(GuestType offeredTo) {
+        Random rand = new Random();
+        RoomOfferDiscount discount = new RoomOfferDiscount();
+        discount.Name = "Discount Type " + ++discountCounter;
+        discount.Coefficient = rand.nextFloat() * (0.9f - 0.75f) + 0.75f;
+        discount.OfferedTo = offeredTo;
+        roomOfferDiscountRepository.save(discount);
+        return discount;
     }
 
     private RoomType genRoomType() {
