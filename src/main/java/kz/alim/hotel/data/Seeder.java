@@ -24,8 +24,11 @@ public class Seeder implements ApplicationRunner {
     public final GuestRepository guestRepository;
     public final GuestTypeRepository guestTypeRepository;
     public final RoomOfferDiscountRepository roomOfferDiscountRepository;
+    public final ReservationRepository reservationRepository;
+    public final HotelServiceRepository hotelServiceRepository;
+    public final BillRepository billRepository;
 
-    public Seeder(RoomOfferRepository roomOfferRepository, SeasonRepository seasonRepository, RoomTypeRepository roomTypeRepository, AuthController authController, RoomRepository roomRepository, RoomFeatureRepository roomFeatureRepository, HotelRepository hotelRepository, RoomServiceRepository roomServiceRepository, GuestRepository guestRepository, GuestTypeRepository guestTypeRepository, RoomOfferDiscountRepository roomOfferDiscountRepository) {
+    public Seeder(RoomOfferRepository roomOfferRepository, SeasonRepository seasonRepository, RoomTypeRepository roomTypeRepository, AuthController authController, RoomRepository roomRepository, RoomFeatureRepository roomFeatureRepository, HotelRepository hotelRepository, RoomServiceRepository roomServiceRepository, GuestRepository guestRepository, GuestTypeRepository guestTypeRepository, RoomOfferDiscountRepository roomOfferDiscountRepository, ReservationRepository reservationRepository, HotelServiceRepository hotelServiceRepository, BillRepository billRepository) {
         this.roomOfferRepository = roomOfferRepository;
         this.seasonRepository = seasonRepository;
         this.roomTypeRepository = roomTypeRepository;
@@ -37,6 +40,9 @@ public class Seeder implements ApplicationRunner {
         this.guestRepository = guestRepository;
         this.guestTypeRepository = guestTypeRepository;
         this.roomOfferDiscountRepository = roomOfferDiscountRepository;
+        this.reservationRepository = reservationRepository;
+        this.hotelServiceRepository = hotelServiceRepository;
+        this.billRepository = billRepository;
     }
 
     @Override
@@ -68,6 +74,40 @@ public class Seeder implements ApplicationRunner {
         genHotel("Silver Hotel", "Satpaeva 23", phones2);
 
         genUsers();
+
+        Reservation reservation = new Reservation();
+        reservation.RoomOffer = roomOfferRepository.findById(1L).orElseThrow();
+        reservation.Room = roomRepository.findById(1L).orElseThrow();
+        reservation.Occupants = Collections.singletonList(guestRepository.findByLogin("Mona"));
+        reservation.Start = LocalDateTime.now();
+        reservation.End = LocalDateTime.now().plusDays(5);
+        reservation.PayingGuest = guestRepository.findByLogin("Mona");
+        reservationRepository.save(reservation);
+
+        Bill bill = new Bill();
+        bill.Guest = guestRepository.findByLogin("Mona");
+        bill.Reservations = Collections.singletonList(reservationRepository.findById(1L).orElseThrow());
+        bill.Services = hotelServiceRepository.findAllById(Arrays.asList(1L,2L));
+        bill.Hotel = hotelRepository.findById(1L).orElseThrow();
+        bill.PaidOn = LocalDateTime.now().plusDays(5);
+        billRepository.save(bill);
+
+        Reservation reservation2 = new Reservation();
+        reservation2.RoomOffer = roomOfferRepository.findById(2L).orElseThrow();
+        reservation2.Room = roomRepository.findById(2L).orElseThrow();
+        reservation2.Occupants = Collections.singletonList(guestRepository.findByLogin("Mona"));
+        reservation2.Start = LocalDateTime.now().minusDays(15);
+        reservation2.End = LocalDateTime.now().minusDays(12);
+        reservation2.PayingGuest = guestRepository.findByLogin("Mona");
+        reservationRepository.save(reservation2);
+
+        Bill bill2 = new Bill();
+        bill2.Guest = guestRepository.findByLogin("Mona");
+        bill2.Reservations = Collections.singletonList(reservationRepository.findById(2L).orElseThrow());
+        bill2.Services = hotelServiceRepository.findAllById(Arrays.asList(2L,3L));
+        bill2.Hotel = hotelRepository.findById(1L).orElseThrow();
+        bill2.PaidOn = LocalDateTime.now().minusDays(12);
+        billRepository.save(bill2);
     }
 
     private void genUsers() {
